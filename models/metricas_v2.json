@@ -1,0 +1,60 @@
+{
+  "modelo": "Rede Neural (Keras)",
+  "versao": "v2",
+  "data_treinamento": "2026-10-21 23:10:31",
+  "dataset": "NBA Players Stats and Salaries 2022-23",
+  "n_registros": 467,
+  "arquitetura": "128-64-32-1 (ReLU + Dropout 20%)",
+  "epochs_treinadas": 121,
+  "batch_size": 32,
+  "optimizer": "adam",
+  "variaveis_preditoras": [
+    "Position",
+    "Age",
+    "GP",
+    "GS",
+    "3P",
+    "TRB",
+    "AST",
+    "STL",
+    "BLK",
+    "PF",
+    "PTS",
+    "PER",
+    "TS%",
+    "3PAr",
+    "FTr",
+    "ORB%",
+    "TRB%",
+    "STL%",
+    "BLK%",
+    "TOV%",
+    "USG%",
+    "WS",
+    "tier_time",
+    "eficiencia"
+  ],
+  "comparativo_modelos": {
+    "Regressao_Linear": {
+      "MAE": 4921851,
+      "RMSE": 6371145,
+      "R2": 0.6943
+    },
+    "KNN_K10": {
+      "MAE": 6115353,
+      "RMSE": 6115353,
+      "R2": 0.7183
+    },
+    "Rede_Neural": {
+      "MAE": 4038354.75,
+      "RMSE": 6076096.06,
+      "R2": 0.7219
+    }
+  },
+  "metricas_teste": {
+    "MAE": 4038354.75,
+    "MSE": 36918943285248.0,
+    "RMSE": 6076096.06,
+    "R2": 0.7219
+  }
+}
