@@ -2,13 +2,15 @@
 # main.py
 # Ponto de entrada da aplicação FastAPI
 # Gerencia o ciclo de vida e inclui os roteadores
+#
+# Para rodar (no terminal, na pasta do projeto):
+#   uvicorn main:app --reload
 # ============================================================
 
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from routers.predict import router
 from services import model_service
-
 
 # ============================================================
 # Lifespan — Ciclo de vida da aplicação
@@ -24,18 +26,14 @@ async def lifespan(app: FastAPI):
     - Startup: carrega o modelo na memória RAM
     - Shutdown: libera os recursos
     """
-    # --------------------------------------------------------
-    # STARTUP — executado ao iniciar a aplicação
-    # --------------------------------------------------------
+    # STARTUP
     print("🚀 Iniciando NBA Salary Predictor API...")
     model_service.carregar_modelo()
     print("✅ API pronta para receber requisições!")
 
     yield  # API fica disponível aqui
 
-    # --------------------------------------------------------
-    # SHUTDOWN — executado ao encerrar a aplicação
-    # --------------------------------------------------------
+    # SHUTDOWN
     print("🔴 Encerrando NBA Salary Predictor API...")
 
 
@@ -59,7 +57,7 @@ app = FastAPI(
     - **POST /v1/predict** — predição de salário
     """,
     version="2.0.0",
-    lifespan=lifespan
+    lifespan=lifespan,
 )
 
 
@@ -70,7 +68,7 @@ app.include_router(router)
 
 
 # ============================================================
-# Rota raiz — redirecionamento para documentação
+# Rota raiz — informações básicas da API
 # ============================================================
 @app.get("/", tags=["Root"])
 async def root():
@@ -78,10 +76,10 @@ async def root():
     Rota raiz — informações básicas da API
     """
     return {
-        "api"      : "NBA Salary Predictor",
-        "versao"   : "2.0.0",
-        "modelo"   : "Rede Neural (Keras) v2",
-        "docs"     : "/docs",
-        "health"   : "/v1/health",
-        "predict"  : "/v1/predict"
+        "api": "NBA Salary Predictor",
+        "versao": "2.0.0",
+        "modelo": "Rede Neural (Keras) v2",
+        "docs": "/docs",
+        "health": "/v1/health",
+        "predict": "/v1/predict",
     }
