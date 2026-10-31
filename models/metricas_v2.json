@@ -1,11 +1,13 @@
 {
   "modelo": "Rede Neural (Keras)",
   "versao": "v2",
-  "data_treinamento": "2026-10-21 23:10:31",
+  "data_treinamento": "2026-10-30 20:59:29",
   "dataset": "NBA Players Stats and Salaries 2022-23",
-  "n_registros": 467,
+  "n_registros_total": 467,
+  "n_registros_treino": 373,
+  "n_registros_teste": 94,
   "arquitetura": "128-64-32-1 (ReLU + Dropout 20%)",
-  "epochs_treinadas": 121,
+  "epochs_treinadas": 94,
   "batch_size": 32,
   "optimizer": "adam",
   "variaveis_preditoras": [
@@ -36,25 +38,29 @@
   ],
   "comparativo_modelos": {
     "Regressao_Linear": {
-      "MAE": 4921851,
-      "RMSE": 6371145,
-      "R2": 0.6943
+      "MAE": 4694829.29,
+      "MSE": 38242199954448.45,
+      "RMSE": 6184027.81,
+      "R2": 0.7119
     },
     "KNN_K10": {
-      "MAE": 6115353,
-      "RMSE": 6115353,
-      "R2": 0.7183
+      "MAE": 3953729.0,
+      "MSE": 33570692330835.21,
+      "RMSE": 5794022.12,
+      "R2": 0.7471
     },
     "Rede_Neural": {
-      "MAE": 4038354.75,
-      "RMSE": 6076096.06,
-      "R2": 0.7219
+      "MAE": 3973166.75,
+      "MSE": 35379843432448.0,
+      "RMSE": 5948095.78,
+      "R2": 0.7335
     }
   },
   "metricas_teste": {
-    "MAE": 4038354.75,
-    "MSE": 36918943285248.0,
-    "RMSE": 6076096.06,
-    "R2": 0.7219
-  }
+    "MAE": 3973166.75,
+    "MSE": 35379843432448.0,
+    "RMSE": 5948095.78,
+    "R2": 0.7335
+  },
+  "observacao": "Rede_Neural e metricas_teste são do modelo salvo (retreinado no treino completo), avaliado no teste isolado. Regressão Linear e KNN foram treinados nos mesmos dados e split."
 }
