@@ -50,7 +50,7 @@ app = FastAPI(
     - **Rede Neural** (Keras/TensorFlow)
     - **Versão:** v2
     - **Dataset:** NBA Players Stats and Salaries 2022-23
-    - **R²:** 0.7219
+    - **R²:** 0.7335
 
     ## Endpoints
     - **GET /v1/health** — verificação de saúde da API
