@@ -18,6 +18,24 @@ modelo = None
 pipeline_scaler = None
 label_encoder = None
 
+class RegraDeNegocioError(Exception):
+    """
+    Dados válidos no formato (passaram pelo Pydantic), mas
+    inconsistentes com as regras do domínio. A camada HTTP
+    (router) traduz este erro para o status 400.
+    """
+
+
+def validar_regras_negocio(dados: PlayerInput) -> None:
+    """
+    Regras de negócio que o Pydantic não cobre, pois envolvem
+    mais de um campo ao mesmo tempo.
+    """
+    if dados.GS > dados.GP:
+        raise RegraDeNegocioError(
+            f"GS (jogos como titular = {dados.GS}) não pode ser "
+            f"maior que GP (jogos disputados = {dados.GP})."
+        )
 
 def carregar_modelo():
     """
@@ -121,6 +139,9 @@ def prever_salario(dados: PlayerInput) -> dict:
     Retorna:
         dict com salário previsto, formatado, modelo e versão
     """
+    # Regras de negócio (lança RegraDeNegocioError se violadas)
+    validar_regras_negocio(dados)
+
     # Pré-processamento
     array_scaled = preprocessar_entrada(dados)
 
