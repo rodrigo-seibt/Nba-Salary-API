@@ -6,7 +6,12 @@
 from pydantic import BaseModel, Field
 from typing import Literal
 
+# Limites baseados no dataset 2022-23: porcentagens de jogadores com
+# poucos minutos chegam a extremos (ex.: TOV% até 100, STL% até 24),
+# e jogadores trocados de time podem somar 83 jogos.
+
 class PlayerInput(BaseModel):
+
     """
     Esquema de entrada para predição de salário.
     Define e valida todos os dados necessários para
@@ -19,17 +24,17 @@ class PlayerInput(BaseModel):
         description="Posição do jogador na quadra"
     )
     Age: int = Field(
-        ..., ge=18, le=45,
+        ..., ge=18, le=50,
         description="Idade do jogador em anos"
     )
 
     # Volume de jogo
     GP: int = Field(
-        ..., ge=1, le=82,
+        ..., ge=1, le=85,
         description="Jogos disputados na temporada"
     )
     GS: int = Field(
-        ..., ge=0, le=82,
+        ..., ge=0, le=85,
         description="Jogos como titular"
     )
 
@@ -68,11 +73,11 @@ class PlayerInput(BaseModel):
 
     # Métricas avançadas
     PER: float = Field(
-        ..., ge=-10.0, le=40.0,
+        ..., ge=-25.0, le=70.0,
         description="Player Efficiency Rating"
     )
     TS_pct: float = Field(
-        ..., ge=0.0, le=1.0,
+        ..., ge=0.0, le=1.1,
         alias="TS%",
         description="True Shooting Percentage"
     )
@@ -96,22 +101,22 @@ class PlayerInput(BaseModel):
         description="Total Rebound Percentage"
     )
     STL_pct: float = Field(
-        ..., ge=0.0, le=5.0,
+        ..., ge=0.0, le=25.0,
         alias="STL%",
         description="Steal Percentage"
     )
     BLK_pct: float = Field(
-        ..., ge=0.0, le=15.0,
+        ..., ge=0.0, le=45.0,
         alias="BLK%",
         description="Block Percentage"
     )
     TOV_pct: float = Field(
-        ..., ge=0.0, le=40.0,
+        ..., ge=0.0, le=100.0,
         alias="TOV%",
         description="Turnover Percentage"
     )
     USG_pct: float = Field(
-        ..., ge=0.0, le=50.0,
+        ..., ge=0.0, le=55.0,
         alias="USG%",
         description="Usage Percentage"
     )
