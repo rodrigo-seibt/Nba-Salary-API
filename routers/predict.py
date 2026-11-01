@@ -73,6 +73,9 @@ async def predict(dados: PlayerInput):
         resultado = model_service.prever_salario(dados)
         return PlayerOutput(**resultado)
 
+    except model_service.RegraDeNegocioError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
     except Exception as e:
         raise HTTPException(
             status_code=500,
