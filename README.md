@@ -6,7 +6,7 @@ API REST que prevê o **salário anual de jogadores da NBA** a partir das estat�
 
 ## 🎥 Vídeo de demonstração
 
-[**Assistir ao vídeo (Google Drive)**](COLE_AQUI_O_LINK_DO_VIDEO)
+[**Assistir ao vídeo (Google Drive)**](https://drive.google.com/file/d/1D2X_Mji45kivEz1HwMD2yeE_3Z4NXMSx/view?usp=drive_link)
 
 ---
 
@@ -194,7 +194,6 @@ Documentação interativa: **http://127.0.0.1:8000/docs**
   "WS": 7.8,
   "tier_time": 3,
   "eficiencia": 43.1
-}
 }
 ```
 
