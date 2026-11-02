@@ -1,7 +1,7 @@
 {
   "modelo": "Rede Neural (Keras)",
   "versao": "v2",
-  "data_treinamento": "2026-10-30 20:59:29",
+  "data_treinamento": "2026-11-02 13:33:56",
   "dataset": "NBA Players Stats and Salaries 2022-23",
   "n_registros_total": 467,
   "n_registros_treino": 373,

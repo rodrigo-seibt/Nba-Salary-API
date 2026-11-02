@@ -171,7 +171,7 @@ Documentação interativa: **http://127.0.0.1:8000/docs**
 ```json
 {
   "Position": "PG",
-  "Age": 35,
+  "Age": 34,
   "GP": 56,
   "GS": 56,
   "3P": 4.9,
@@ -193,7 +193,7 @@ Documentação interativa: **http://127.0.0.1:8000/docs**
   "USG%": 30.1,
   "WS": 8.5,
   "tier_time": 3,
-  "eficiencia": 44.0
+  "eficiencia": 43.1
 }
 ```
 
