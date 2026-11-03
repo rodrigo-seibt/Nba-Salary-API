@@ -226,11 +226,22 @@ curl -X POST "http://127.0.0.1:8000/v1/predict" \
 | Código | Quando ocorre |
 |---|---|
 | **200 OK** | Predição realizada (ou serviço saudável no `/health`) |
+| **400 Bad Request** | Dado válido no formato, mas inconsistente com uma regra de negócio (ex.: `GS` maior que `GP`). Barrado na camada de serviço |
 | **422 Unprocessable Entity** | Dados inválidos: tipo incorreto, campo ausente ou valor fora dos limites. Barrado pelo Pydantic **antes** de chegar ao modelo |
 | **500 Internal Server Error** | Erro inesperado durante a inferência, devolvido com mensagem tratada |
 | **503 Service Unavailable** | `/health` quando o modelo não está carregado na memória |
 
 **Exemplo de erro 422** (idade fora do limite, resposta resumida):
+
+**Exemplo de erro 400** (`GS` maior que `GP`):
+
+```json
+{
+  "detail": "GS (jogos como titular = 50) não pode ser maior que GP (jogos disputados = 10)."
+}
+```
+
+> **422 × 400:** o 422 indica formato inválido (tipo errado, campo ausente ou fora do limite), validado pelo Pydantic campo a campo. O 400 indica que cada campo é válido sozinho, mas a combinação é impossível.
 
 ```json
 {
@@ -279,6 +290,7 @@ Modelo em memória (carregado uma única vez no lifespan)
 
 - **Lifespan:** o modelo, o pipeline e o LabelEncoder são carregados na RAM **uma única vez**, na inicialização (`@asynccontextmanager` em `main.py`). Nenhum arquivo é lido do disco a cada requisição.
 - **Validação estrita:** `Field` com `ge`, `le` e `Literal` define os limites de cada variável.
+- **Regra de negócio:** `GS ≤ GP` é validada na camada de serviço, que lança `RegraDeNegocioError`. O roteador traduz esse erro para o status 400, mantendo as regras do domínio fora do protocolo HTTP.
 - **Pré-processamento na inferência:** a API aplica o mesmo LabelEncoder e o `StandardScaler` do treino. O `SimpleImputer` do pipeline não é usado na inferência, pois o Pydantic já garante que não há valores ausentes.
 
 ### Estrutura do repositório
@@ -325,6 +337,10 @@ O desenvolvimento seguiu o Git Flow, com uma branch por tarefa e Pull Requests p
 | `fix/metricas-notebook` | Correção do comparativo de modelos e das métricas |
 | `chore/requirements` | Atualização das dependências |
 | `feature/docs` | README |
+| `fix/schema-limites` | Ajuste dos limites do schema para cobrir jogadores reais |
+| `feature/validacao-negocio` | Regra de negócio `GS ≤ GP` com resposta 400 |
+| `docs/link-video` | Inclusão do link do vídeo no README |
+| `docs/readme-erro-400` | Inclusão do erro 400 e regra de negócio no README |
 
 ---
 
