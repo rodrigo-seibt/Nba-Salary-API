@@ -231,8 +231,6 @@ curl -X POST "http://127.0.0.1:8000/v1/predict" \
 | **500 Internal Server Error** | Erro inesperado durante a inferência, devolvido com mensagem tratada |
 | **503 Service Unavailable** | `/health` quando o modelo não está carregado na memória |
 
-**Exemplo de erro 422** (idade fora do limite, resposta resumida):
-
 **Exemplo de erro 400** (`GS` maior que `GP`):
 
 ```json
@@ -240,8 +238,7 @@ curl -X POST "http://127.0.0.1:8000/v1/predict" \
   "detail": "GS (jogos como titular = 50) não pode ser maior que GP (jogos disputados = 10)."
 }
 ```
-
-> **422 × 400:** o 422 indica formato inválido (tipo errado, campo ausente ou fora do limite), validado pelo Pydantic campo a campo. O 400 indica que cada campo é válido sozinho, mas a combinação é impossível.
+**Exemplo de erro 422** (idade fora do limite, resposta resumida):
 
 ```json
 {
@@ -255,6 +252,7 @@ curl -X POST "http://127.0.0.1:8000/v1/predict" \
   ]
 }
 ```
+> **422 × 400:** o 422 indica formato inválido (tipo errado, campo ausente ou fora do limite), validado pelo Pydantic campo a campo. O 400 indica que cada campo é válido sozinho, mas a combinação é impossível.
 
 > Os campos `3P`, `TS%`, `3PAr`, `ORB%`, `TRB%`, `STL%`, `BLK%`, `TOV%` e `USG%` usam esses nomes exatos no JSON (via `alias` do Pydantic).
 
